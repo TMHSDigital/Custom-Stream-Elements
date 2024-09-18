@@ -1,108 +1,95 @@
-<?php
-function scanDirectory($dir) {
-    $result = [];
-    $files = scandir($dir);
-    foreach ($files as $file) {
-        if ($file === '.' || $file === '..') continue;
-        $path = $dir . '/' . $file;
-        if (is_dir($path)) {
-            $result[$file] = scanDirectory($path);
-        } else if (pathinfo($file, PATHINFO_EXTENSION) === 'html') {
-            $result[] = $file;
-        }
-    }
-    return $result;
-}
-
-$structure = scanDirectory('.');
-?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stream Elements Navigator</title>
+    <title>Repository Navigator</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        .container {
-            display: flex;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .nav {
-            width: 250px;
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-        }
-        .nav ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .nav ul ul {
-            padding-left: 20px;
-        }
-        .nav a {
-            color: #fff;
-            text-decoration: none;
-        }
-        .nav a:hover {
-            text-decoration: underline;
-        }
-        .content {
-            flex-grow: 1;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            margin-left: 20px;
-        }
-        iframe {
-            width: 100%;
-            height: 600px;
-            border: none;
-        }
+        ul { list-style-type: none; }
+        li { margin-left: 20px; }
+        li span { cursor: pointer; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <nav class="nav">
-            <h2>Stream Elements</h2>
-            <?php
-            function displayMenu($structure) {
-                echo "<ul>";
-                foreach ($structure as $key => $value) {
-                    if (is_array($value)) {
-                        echo "<li>$key";
-                        displayMenu($value);
-                        echo "</li>";
-                    } else {
-                        echo "<li><a href='#' onclick='loadContent(\"$value\")'>$value</a></li>";
-                    }
-                }
-                echo "</ul>";
-            }
-            displayMenu($structure);
-            ?>
-        </nav>
-        <main class="content">
-            <h1>Welcome to Stream Elements Navigator</h1>
-            <p>Click on an element in the navigation to view it here.</p>
-            <iframe id="elementFrame" src="about:blank"></iframe>
-        </main>
-    </div>
+    <h1>Repository Navigator</h1>
+    <div id="file-tree"></div>
 
     <script>
-        function loadContent(file) {
-            document.getElementById('elementFrame').src = file;
+        // Replace these constants with your GitHub repository details
+        const owner = 'TMHSDigital';
+        const repo = 'Custom-Stream-Elements';
+        const branch = 'main'; // Change if using a different branch
+
+        /**
+         * Fetches the contents of a given path from the GitHub repository.
+         * @param {string} path - The path within the repository.
+         * @returns {Promise<Array>} - A promise that resolves to an array of items.
+         */
+        async function fetchContents(path) {
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
+            }
+            return response.json();
         }
+
+        /**
+         * Creates a list item node for the given item (file or directory).
+         * @param {Object} item - The item object from the GitHub API.
+         * @returns {HTMLElement} - The list item element.
+         */
+        function createNode(item) {
+            const li = document.createElement('li');
+            if (item.type === 'dir') {
+                const span = document.createElement('span');
+                span.textContent = '📁 ' + item.name;
+                li.appendChild(span);
+                const ul = document.createElement('ul');
+                li.appendChild(ul);
+
+                // Fetch and display the contents when the directory name is clicked
+                span.addEventListener('click', () => {
+                    if (ul.childElementCount === 0) {
+                        fetchContents(item.path).then(contents => {
+                            contents.forEach(child => {
+                                const childNode = createNode(child);
+                                ul.appendChild(childNode);
+                            });
+                        }).catch(error => {
+                            console.error(error);
+                        });
+                    } else {
+                        ul.innerHTML = ''; // Toggle visibility
+                    }
+                });
+            } else if (item.type === 'file') {
+                const a = document.createElement('a');
+                a.textContent = '📄 ' + item.name;
+                a.href = './' + item.path;
+                li.appendChild(a);
+            }
+            return li;
+        }
+
+        /**
+         * Initializes the file tree by fetching the root contents.
+         */
+        function init() {
+            const container = document.getElementById('file-tree');
+            const ul = document.createElement('ul');
+            container.appendChild(ul);
+            fetchContents('').then(contents => {
+                contents.forEach(item => {
+                    const node = createNode(item);
+                    ul.appendChild(node);
+                });
+            }).catch(error => {
+                console.error(error);
+            });
+        }
+
+        // Start the script
+        init();
     </script>
 </body>
 </html>
