@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stream Starting Soon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- CSS Styles -->
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Russo One', sans-serif;
+            background: #000;
+            color: #fff;
+        }
+        /* Particle.js Background */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            background-size: cover;
+            background-position: 50% 50%;
+            z-index: -1;
+        }
+        /* Main Container */
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            padding-top: 10%;
+        }
+        /* Glitch Effect Title */
+        .glitch {
+            font-size: 5em;
+            position: relative;
+            color: #fff;
+            animation: glitch-animation 2s infinite;
+        }
+        .glitch:before, .glitch:after {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            color: #fff;
+            background: #000;
+            overflow: hidden;
+        }
+        .glitch:before {
+            left: 2px;
+            text-shadow: -2px 0 red;
+            clip: rect(0, 900px, 0, 0);
+            animation: glitch-animation 2s infinite;
+        }
+        .glitch:after {
+            left: -2px;
+            text-shadow: -2px 0 blue;
+            clip: rect(0, 900px, 0, 0);
+            animation: glitch-animation2 2s infinite;
+        }
+        @keyframes glitch-animation {
+            0% {
+                clip: rect(42px, 9999px, 44px, 0);
+                transform: skew(0.5deg);
+            }
+            5% {
+                clip: rect(12px, 9999px, 85px, 0);
+                transform: skew(0.5deg);
+            }
+            10% {
+                clip: rect(85px, 9999px, 96px, 0);
+                transform: skew(0.5deg);
+            }
+            15% {
+                clip: rect(45px, 9999px, 70px, 0);
+                transform: skew(0.5deg);
+            }
+            20% {
+                clip: rect(25px, 9999px, 80px, 0);
+                transform: skew(0.5deg);
+            }
+            25% {
+                clip: rect(10px, 9999px, 50px, 0);
+                transform: skew(0.5deg);
+            }
+            30% {
+                clip: rect(60px, 9999px, 90px, 0);
+                transform: skew(0.5deg);
+            }
+            35% {
+                clip: rect(30px, 9999px, 60px, 0);
+                transform: skew(0.5deg);
+            }
+            40% {
+                clip: rect(20px, 9999px, 40px, 0);
+                transform: skew(0.5deg);
+            }
+            45% {
+                clip: rect(50px, 9999px, 70px, 0);
+                transform: skew(0.5deg);
+            }
+            50% {
+                clip: rect(15px, 9999px, 55px, 0);
+                transform: skew(0.5deg);
+            }
+            55% {
+                clip: rect(25px, 9999px, 65px, 0);
+                transform: skew(0.5deg);
+            }
+            60% {
+                clip: rect(35px, 9999px, 75px, 0);
+                transform: skew(0.5deg);
+            }
+            65% {
+                clip: rect(45px, 9999px, 85px, 0);
+                transform: skew(0.5deg);
+            }
+            70% {
+                clip: rect(55px, 9999px, 95px, 0);
+                transform: skew(0.5deg);
+            }
+            75% {
+                clip: rect(65px, 9999px, 105px, 0);
+                transform: skew(0.5deg);
+            }
+            80% {
+                clip: rect(75px, 9999px, 115px, 0);
+                transform: skew(0.5deg);
+            }
+            85% {
+                clip: rect(85px, 9999px, 125px, 0);
+                transform: skew(0.5deg);
+            }
+            90% {
+                clip: rect(95px, 9999px, 135px, 0);
+                transform: skew(0.5deg);
+            }
+            95% {
+                clip: rect(105px, 9999px, 145px, 0);
+                transform: skew(0.5deg);
+            }
+            100% {
+                clip: rect(115px, 9999px, 155px, 0);
+                transform: skew(0.5deg);
+            }
+        }
+        @keyframes glitch-animation2 {
+            0% {
+                clip: rect(10px, 9999px, 40px, 0);
+                transform: skew(-0.5deg);
+            }
+            5% {
+                clip: rect(60px, 9999px, 80px, 0);
+                transform: skew(-0.5deg);
+            }
+            10% {
+                clip: rect(20px, 9999px, 60px, 0);
+                transform: skew(-0.5deg);
+            }
+            15% {
+                clip: rect(70px, 9999px, 90px, 0);
+                transform: skew(-0.5deg);
+            }
+            20% {
+                clip: rect(30px, 9999px, 70px, 0);
+                transform: skew(-0.5deg);
+            }
+            25% {
+                clip: rect(80px, 9999px, 100px, 0);
+                transform: skew(-0.5deg);
+            }
+            30% {
+                clip: rect(40px, 9999px, 80px, 0);
+                transform: skew(-0.5deg);
+            }
+            35% {
+                clip: rect(90px, 9999px, 110px, 0);
+                transform: skew(-0.5deg);
+            }
+            40% {
+                clip: rect(50px, 9999px, 90px, 0);
+                transform: skew(-0.5deg);
+            }
+            45% {
+                clip: rect(100px, 9999px, 120px, 0);
+                transform: skew(-0.5deg);
+            }
+            50% {
+                clip: rect(60px, 9999px, 100px, 0);
+                transform: skew(-0.5deg);
+            }
+            55% {
+                clip: rect(110px, 9999px, 130px, 0);
+                transform: skew(-0.5deg);
+            }
+            60% {
+                clip: rect(70px, 9999px, 110px, 0);
+                transform: skew(-0.5deg);
+            }
+            65% {
+                clip: rect(120px, 9999px, 140px, 0);
+                transform: skew(-0.5deg);
+            }
+            70% {
+                clip: rect(80px, 9999px, 120px, 0);
+                transform: skew(-0.5deg);
+            }
+            75% {
+                clip: rect(130px, 9999px, 150px, 0);
+                transform: skew(-0.5deg);
+            }
+            80% {
+                clip: rect(90px, 9999px, 130px, 0);
+                transform: skew(-0.5deg);
+            }
+            85% {
+                clip: rect(140px, 9999px, 160px, 0);
+                transform: skew(-0.5deg);
+            }
+            90% {
+                clip: rect(100px, 9999px, 140px, 0);
+                transform: skew(-0.5deg);
+            }
+            95% {
+                clip: rect(150px, 9999px, 170px, 0);
+                transform: skew(-0.5deg);
+            }
+            100% {
+                clip: rect(110px, 9999px, 150px, 0);
+                transform: skew(-0.5deg);
+            }
+        }
+        /* Countdown Timer */
+        #countdown {
+            font-size: 4em;
+            margin-top: 20px;
+            text-shadow: 0 0 10px #fff;
+        }
+        /* Social Media Links */
+        .social-links {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        .social-link {
+            position: relative;
+            width: 150px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #fff;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .social-link:hover {
+            background: #fff;
+        }
+        .social-link-icon, .social-link-text {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            line-height: 50px;
+            font-size: 1.5em;
+            transition: all 0.5s ease;
+            color: #fff;
+        }
+        .social-link:hover .social-link-icon {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        .social-link-text {
+            top: 100%;
+            font-size: 1em;
+        }
+        .social-link:hover .social-link-text {
+            top: 0;
+            color: #000;
+        }
+        .social-link::before, .social-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background: linear-gradient(45deg, red, blue);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        .social-link::before {
+            transform: skewX(45deg);
+        }
+        .social-link::after {
+            transform: skewX(-45deg);
+        }
+        .social-link:hover::before, .social-link:hover::after {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+    <!-- Main Content -->
+    <div class="container">
+        <h1 class="glitch" data-text="Stream Starting Soon">Stream Starting Soon</h1>
+        <div id="countdown">05:00</div>
+        <div class="social-links">
+            <!-- Instagram 1 -->
+            <a href="https://instagram.com/fOuttaMyPaint" target="_blank" class="social-link">
+                <div class="social-link-icon"><i class="fab fa-instagram"></i></div>
+                <div class="social-link-text">Instagram 1</div>
+            </a>
+            <!-- Instagram 2 -->
+            <a href="https://instagram.com/tmhs.ig" target="_blank" class="social-link">
+                <div class="social-link-icon"><i class="fab fa-instagram"></i></div>
+                <div class="social-link-text">Instagram 2</div>
+            </a>
+            <!-- GitHub -->
+            <a href="https://github.com/TMHSDigital" target="_blank" class="social-link">
+                <div class="social-link-icon"><i class="fab fa-github"></i></div>
+                <div class="social-link-text">GitHub</div>
+            </a>
+        </div>
+    </div>
+    <!-- Scripts -->
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Countdown Timer Script -->
+    <script>
+        // Initialize Particles.js
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 100,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                },
+                "opacity": {
+                    "value": 0.5,
+                },
+                "size": {
+                    "value": 3,
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                }
+            },
+            "interactivity": {
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+        // Countdown Timer
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = 0;
+                }
+            }, 1000);
+        }
+        window.onload = function () {
+            var fiveMinutes = 60 * 5,
+                display = document.querySelector('#countdown');
+            startTimer(fiveMinutes, display);
+        };
+    </script>
+</body>
+</html>

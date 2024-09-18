@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Starting Soon - Advanced</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Roboto', sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
+        }
+        h1 {
+            font-size: 5em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 
+                0 0 10px #00ffff,
+                0 0 20px #00ffff,
+                0 0 30px #00ffff,
+                0 0 40px #00ffff;
+        }
+        #countdown {
+            font-size: 4em;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        .social-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 2em;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+        .social-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+        }
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
+            z-index: -1;
+            filter: blur(10px);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .social-links a:hover::before {
+            opacity: 1;
+        }
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .glitch {
+            position: relative;
+        }
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00ff;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00ffff;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(52px, 9999px, 77px, 0); }
+            5% { clip: rect(99px, 9999px, 95px, 0); }
+            10% { clip: rect(23px, 9999px, 92px, 0); }
+            15% { clip: rect(39px, 9999px, 26px, 0); }
+            20% { clip: rect(76px, 9999px, 25px, 0); }
+            25% { clip: rect(12px, 9999px, 59px, 0); }
+            30% { clip: rect(34px, 9999px, 31px, 0); }
+            35% { clip: rect(8px, 9999px, 82px, 0); }
+            40% { clip: rect(89px, 9999px, 55px, 0); }
+            45% { clip: rect(18px, 9999px, 11px, 0); }
+            50% { clip: rect(44px, 9999px, 60px, 0); }
+            55% { clip: rect(92px, 9999px, 37px, 0); }
+            60% { clip: rect(95px, 9999px, 53px, 0); }
+            65% { clip: rect(43px, 9999px, 50px, 0); }
+            70% { clip: rect(100px, 9999px, 99px, 0); }
+            75% { clip: rect(47px, 9999px, 15px, 0); }
+            80% { clip: rect(26px, 9999px, 40px, 0); }
+            85% { clip: rect(3px, 9999px, 30px, 0); }
+            90% { clip: rect(33px, 9999px, 98px, 0); }
+            95% { clip: rect(8px, 9999px, 5px, 0); }
+            100% { clip: rect(97px, 9999px, 60px, 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(69px, 9999px, 55px, 0); }
+            5% { clip: rect(35px, 9999px, 39px, 0); }
+            10% { clip: rect(38px, 9999px, 96px, 0); }
+            15% { clip: rect(44px, 9999px, 57px, 0); }
+            20% { clip: rect(39px, 9999px, 59px, 0); }
+            25% { clip: rect(88px, 9999px, 70px, 0); }
+            30% { clip: rect(80px, 9999px, 84px, 0); }
+            35% { clip: rect(8px, 9999px, 43px, 0); }
+            40% { clip: rect(9px, 9999px, 89px, 0); }
+            45% { clip: rect(13px, 9999px, 100px, 0); }
+            50% { clip: rect(30px, 9999px, 77px, 0); }
+            55% { clip: rect(46px, 9999px, 40px, 0); }
+            60% { clip: rect(46px, 9999px, 9px, 0); }
+            65% { clip: rect(88px, 9999px, 20px, 0); }
+            70% { clip: rect(65px, 9999px, 54px, 0); }
+            75% { clip: rect(37px, 9999px, 84px, 0); }
+            80% { clip: rect(65px, 9999px, 53px, 0); }
+            85% { clip: rect(36px, 9999px, 72px, 0); }
+            90% { clip: rect(35px, 9999px, 91px, 0); }
+            95% { clip: rect(40px, 9999px, 62px, 0); }
+            100% { clip: rect(66px, 9999px, 69px, 0); }
+        }
+</style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="container">
+        <h1 class="glitch" data-text="Stream Starting Soon">Stream Starting Soon</h1>
+        <div id="countdown">05:00</div>
+        <div class="social-links">
+            <a href="https://instagram.com/fOuttaMyPaint" target="_blank"><i class="fab fa-instagram"></i> Instagram 1</a>
+            <a href="https://instagram.com/tmhs.ig" target="_blank"><i class="fab fa-instagram"></i> Instagram 2</a>
+            <a href="https://github.com/TMHSDigital" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script>
+        // Particles.js configuration
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#ffffff" },
+                shape: { type: "circle", stroke: { width: 0, color: "#000000" }, polygon: { nb_sides: 5 }, },
+                opacity: { value: 0.5, random: false, anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false } },
+                size: { value: 3, random: true, anim: { enable: false, speed: 40, size_min: 0.1, sync: false } },
+                line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 6, direction: "none", random: false, straight: false, out_mode: "out", bounce: false, attract: { enable: false, rotateX: 600, rotateY: 1200 } },
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true },
+                modes: { grab: { distance: 400, line_linked: { opacity: 1 } }, bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 }, repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 }, remove: { particles_nb: 2 } },
+            },
+            retina_detect: true,
+        });
+
+        // Countdown timer
+        function startCountdown(duration, display) {
+            var timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = duration;
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            var fiveMinutes = 60 * 5,
+                display = document.querySelector('#countdown');
+            startCountdown(fiveMinutes, display);
+        };
+    </script>
+</body>
+</html>
