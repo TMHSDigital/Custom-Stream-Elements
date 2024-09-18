@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Rotating Social Media Display</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap');
+        
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        #social-display {
+            display: flex;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        #social-display:hover {
+            transform: scale(1.05);
+        }
+        #social-icon {
+            width: 48px;
+            height: 48px;
+            margin-right: 15px;
+        }
+        #social-handle {
+            font-size: 32px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateY(20px); }
+            10%, 90% { opacity: 1; transform: translateY(0); }
+        }
+        #social-display {
+            animation: fadeInOut 5s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div id="social-display">
+        <img id="social-icon" src="" alt="Social Media Icon">
+        <span id="social-handle"></span>
+    </div>
+
+    <script>
+        const socials = [
+            { platform: 'Twitter', handle: '@YourTwitter', icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS10d2l0dGVyIj48cGF0aCBkPSJNMjIgNGMtLjU4OC4zMTMtMS4yLjU2NS0xLjgyLjc0OC43MjMtLjQ1NCAxLjI4LTEuMTUgMS41OC0yLjAwNS0uNzI1LjQ4LTEuNTMuODItMi4zNiAxLjIyNi43MTktLjcxNiAxLjIyMy0xLjc3MyAxLjIyMy0yLjk2OWEzLjQwNyAzLjQwNyAwIDAgMC0uMDQ5LS41MTZDMTYuOTk5IDIuMzggMTQuMzk0IDQgMTEuMzkzIDRjLTMuMDE0IDAtNS40NTcgMi41MzYtNS40NTcgNS42NiAwIC40NDguMDQ0Ljg4NS4xNDMgMS4zMDNDMy4xODggMTAuNzQ4LjM4NyA4LjUxOS4zODcgNS43OTlhNS43MjkgNS43MjkgMCAwIDEgLjczLTIuODMyQzEuMDcgMi44MzYgMCAzLjg2OCAwIDUuMTA3djEzLjc4NmE1LjE2IDUuMTYgMCAwIDAgNS4xMDEgNS4xMDFINy40NjVhMi41OSAyLjU5IDAgMCAxIDIuNTUgMi45MmMuODI2LS4xODEgMS42Mi0uNDYgMi4zNjMtLjgyYTkuNzk0IDkuNzk0IDAgMCAwIDIuODE0LTEuOTA3QTkuNjU2IDkuNjU2IDAgMCAwIDE3LjgzNSAxOS41YTkuNjE1IDkuNjE1IDAgMCAwIC45ODMtNC4yMjFjMC0uMjA3LS4wMDUtLjQxMi0uMDE2LS42MTZBNC43NTMgNC43NTMgMCAwIDAgMjIgMTIuMjUxQTEwLjc0NiAxMC43NDYgMCAwIDAgMjIgNHoiLz48L3N2Zz4=' },
+            { platform: 'Instagram', handle: '@YourInsta', icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1pbnN0YWdyYW0iPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgeD0iMiIgeT0iMiIgcng9IjUiIHJ5PSI1Ii8+PGNpcmNsZSBjeD0iMTIuMTc5IiBjeT0iMTEuODIxIiByPSIzLjE5NCIvPjxsaW5lIHgxPSIxNy44OTQiIHgyPSIxNy44OTQiIHkxPSI2LjA3OCIgeTI9IjYuMDc4Ii8+PC9zdmc+' },
+            { platform: 'YouTube', handle: 'YourChannel', icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS15b3V0dWJlIj48cGF0aCBkPSJNMi43OCAxNi4zMTRhLjUuNSAwIDAgMC0uMzY5LjUzdjIuNTcyYS41LjUgMCAwIDAgLjc4NS40MWw2LjIzLTMuNTE5YS41LjUgMCAwIDAgMC0uODAybC02LjIzLTMuNTE5YS41LjUgMCAwIDAtLjc4NS40MXYyLjU3M2EuNS41IDAgMCAwIC4zNjkuNTN6TTE4LjIxOSAxNS4yOTVsLTQuMzUtMi40NTJhLjUuNSAwIDAgMC0uNzM3LjQzOXY0LjkwNGEuNS41IDAgMCAwIC43MzcuNDRsNC4zNS0yLjQ1MmEuNS41IDAgMCAwIDAtLjg3OXoiLz48cGF0aCBkPSJNMjEuNiA3SDIuNEExLjQgMS40IDAgMCAwIDEgOC40djE1LjJBMS40IDEuNCAwIDAgMCAyLjQgMjVoMTkuMmExLjQgMS40IDAgMCAwIDEuNC0xLjRWOC40QTEuNCAxLjQgMCAwIDAgMjEuNiA3eiIvPjwvc3ZnPg==' },
+            // Add more social media platforms as needed
+        ];
+
+        let currentIndex = 0;
+
+        function updateSocialDisplay() {
+            const social = socials[currentIndex];
+            document.getElementById('social-icon').src = social.icon;
+            document.getElementById('social-handle').textContent = social.handle;
+            currentIndex = (currentIndex + 1) % socials.length;
+        }
+
+        updateSocialDisplay(); // Initial call
+        setInterval(updateSocialDisplay, 5000); // Rotate every 5 seconds
+    </script>
+</body>
+</html>
