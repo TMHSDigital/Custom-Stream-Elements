@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intense 'I'll be back in' Countdown</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000033; /* Dark navy background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        #message {
+            font-family: 'Arial', sans-serif;
+            font-size: 48px;
+            font-weight: bold;
+            color: #ADD8E6; /* Light blue for the message */
+            text-shadow: 0 0 10px #ADD8E6;
+            margin-bottom: 20px;
+            z-index: 20;
+        }
+        #countdown-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+        #countdown {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Arial', sans-serif;
+            font-size: 72px;
+            font-weight: bold;
+            color: #FFD700; /* Gold color */
+            text-shadow: 0 0 10px #FFD700;
+            z-index: 10;
+        }
+        .circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+        #circle1 { width: 280px; height: 280px; border: 10px solid #FF4500; /* Red-Orange */ }
+        #circle2 { width: 240px; height: 240px; border: 8px solid #FF6347; /* Tomato */ }
+        #circle3 { width: 200px; height: 200px; border: 6px solid #FF7F50; /* Coral */ }
+        #circle4 { width: 160px; height: 160px; border: 4px solid #FFA07A; /* Light Salmon */ }
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.7; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+        }
+        @keyframes rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            10%, 30%, 50%, 70%, 90% { transform: translate(-52%, -52%) rotate(-1deg); }
+            20%, 40%, 60%, 80% { transform: translate(-48%, -48%) rotate(1deg); }
+        }
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .particle {
+            position: absolute;
+            background-color: #FFD700;
+            border-radius: 50%;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="message">I'll be back in</div>
+    <div id="countdown-container">
+        <div id="circle1" class="circle"></div>
+        <div id="circle2" class="circle"></div>
+        <div id="circle3" class="circle"></div>
+        <div id="circle4" class="circle"></div>
+        <div id="countdown"></div>
+        <div class="particles"></div>
+    </div>
+
+    <script>
+        let totalSeconds = 5 * 60; // 5 minutes
+        const countdownElement = document.getElementById('countdown');
+        const messageElement = document.getElementById('message');
+        const circles = document.querySelectorAll('.circle');
+        const particlesContainer = document.querySelector('.particles');
+
+        function updateCountdown() {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            countdownElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            // Increase animation intensity
+            const intensity = 1 - (totalSeconds / (5 * 60));
+            circles.forEach((circle, index) => {
+                circle.style.animation = `pulse ${2 - intensity}s infinite, rotate ${20 - intensity * 15}s linear infinite`;
+            });
+
+            if (intensity > 0.5) {
+                countdownElement.style.animation = `shake ${0.5 - intensity * 0.3}s infinite`;
+            }
+
+            // Add particles
+            if (Math.random() < intensity) {
+                createParticle();
+            }
+
+            if (totalSeconds <= 0) {
+                clearInterval(countdownInterval);
+                messageElement.textContent = "We're Back!";
+                countdownElement.style.display = 'none';
+                circles.forEach(circle => circle.style.animation = "none");
+            } else {
+                totalSeconds--;
+            }
+        }
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.width = `${Math.random() * 10 + 5}px`;
+            particle.style.height = particle.style.width;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            
+            particlesContainer.appendChild(particle);
+
+            // Animate particle
+            const animation = particle.animate([
+                { transform: 'translate(0, 0)', opacity: 1 },
+                { transform: `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px)`, opacity: 0 }
+            ], {
+                duration: Math.random() * 1000 + 500,
+                easing: 'ease-out'
+            });
+
+            animation.onfinish = () => particle.remove();
+        }
+
+        updateCountdown(); // Initial call
+        const countdownInterval = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
