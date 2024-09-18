@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Improved Blunt Countdown</title>
+    <title>Corrected Blunt Countdown</title>
     <style>
         body, html {
             margin: 0;
@@ -20,11 +20,11 @@
         .container {
             position: relative;
             width: 800px;
-            height: 400px;
+            height: 200px;
         }
         #countdown {
             position: absolute;
-            top: 20px;
+            top: -60px;
             left: 0;
             right: 0;
             font-size: 48px;
@@ -47,9 +47,9 @@
         #smokeContainer {
             position: absolute;
             top: 0;
-            right: 0;
-            width: 200px;
-            height: 400px;
+            left: 0;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
             pointer-events: none;
         }
@@ -64,7 +64,7 @@
 <body>
     <div class="container">
         <div id="countdown">Starting Soon</div>
-        <svg id="blunt" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+        <svg id="blunt" viewBox="0 0 800 100" xmlns="http://www.w3.org/2000/svg">
             <defs>
                 <linearGradient id="bluntGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" style="stop-color:#8B4513;stop-opacity:1" />
@@ -86,9 +86,9 @@
                 </filter>
             </defs>
             <g id="bluntGroup">
-                <path id="bluntBody" d="M20,100 Q30,70 50,60 Q400,20 750,60 Q770,70 780,100 Q770,130 750,140 Q400,180 50,140 Q30,130 20,100 Z" fill="url(#bluntGradient)" filter="url(#noise)"/>
-                <ellipse id="bluntEnd" cx="30" cy="100" rx="20" ry="30" fill="#A0522D" filter="url(#noise)"/>
-                <circle id="burningTip" cx="780" cy="100" r="20" fill="#FF4500" filter="url(#glow)"/>
+                <path id="bluntBody" d="M20,50 Q30,35 50,30 Q400,10 750,30 Q770,35 780,50 Q770,65 750,70 Q400,90 50,70 Q30,65 20,50 Z" fill="url(#bluntGradient)" filter="url(#noise)"/>
+                <ellipse id="bluntEnd" cx="20" cy="50" rx="10" ry="15" fill="#A0522D" filter="url(#noise)"/>
+                <circle id="burningTip" cx="780" cy="50" r="10" fill="#FF4500" filter="url(#glow)"/>
             </g>
         </svg>
         <div id="smokeContainer"></div>
@@ -109,10 +109,10 @@
             countdownElement.textContent = `Starting in ${minutes}:${seconds.toString().padStart(2, '0')}`;
 
             const progress = 1 - (timeLeft / totalTime);
-            const newWidth = 760 - (760 * progress);
+            const newWidth = 760 - (730 * progress); // Adjusted to leave some blunt at the end
             
             // Update blunt shape
-            const newPath = `M20,100 Q30,70 50,60 Q${200 + newWidth/2},20 ${newWidth + 20},60 Q${newWidth + 40},70 ${newWidth + 50},100 Q${newWidth + 40},130 ${newWidth + 20},140 Q${200 + newWidth/2},180 50,140 Q30,130 20,100 Z`;
+            const newPath = `M20,50 Q30,35 50,30 Q${210 + newWidth/2},10 ${newWidth + 20},30 Q${newWidth + 40},35 ${newWidth + 50},50 Q${newWidth + 40},65 ${newWidth + 20},70 Q${210 + newWidth/2},90 50,70 Q30,65 20,50 Z`;
             bluntBody.setAttribute('d', newPath);
             
             const newTipX = newWidth + 50;
@@ -132,10 +132,7 @@
         }
 
         function updateSmokePosition(tipX) {
-            const containerRect = smokeContainer.parentElement.getBoundingClientRect();
-            const svgRect = document.getElementById('blunt').getBoundingClientRect();
-            const relativeX = (tipX / 800) * svgRect.width;
-            smokeContainer.style.right = `${containerRect.width - relativeX}px`;
+            smokeContainer.style.clipPath = `inset(0 0 0 ${tipX}px)`;
         }
 
         function createSmokeParticle() {
@@ -144,15 +141,15 @@
             const size = Math.random() * 20 + 10;
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;
-            particle.style.left = `${Math.random() * 20}px`;
-            particle.style.bottom = '100px';
+            particle.style.left = `${burningTip.getAttribute('cx') - size / 2}px`;
+            particle.style.bottom = '50px';
 
             smokeContainer.appendChild(particle);
 
             const animation = particle.animate([
                 { transform: 'translate(0, 0) scale(1)', opacity: 0 },
-                { transform: `translate(${Math.random() * 100 - 50}px, -200px) scale(3)`, opacity: 0.6 },
-                { transform: `translate(${Math.random() * 200 - 100}px, -400px) scale(5)`, opacity: 0 }
+                { transform: `translate(${Math.random() * 100 - 50}px, -100px) scale(3)`, opacity: 0.6 },
+                { transform: `translate(${Math.random() * 200 - 100}px, -200px) scale(5)`, opacity: 0 }
             ], {
                 duration: 3000 + Math.random() * 3000,
                 easing: 'ease-out'
