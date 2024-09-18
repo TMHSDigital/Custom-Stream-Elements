@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improved Blunt Countdown</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            position: relative;
+            width: 800px;
+            height: 400px;
+        }
+        #countdown {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            font-size: 48px;
+            color: #ffffff;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        #blunt {
+            width: 100%;
+            height: 100%;
+        }
+        #burningTip {
+            filter: drop-shadow(0 0 5px #FF4500);
+            animation: glow 2s infinite alternate;
+        }
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 5px #FF4500); }
+            to { filter: drop-shadow(0 0 15px #FF4500); }
+        }
+        #smokeContainer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 400px;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .smoke-particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="countdown">Starting Soon</div>
+        <svg id="blunt" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="bluntGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#8B4513;stop-opacity:1" />
+                    <stop offset="50%" style="stop-color:#A0522D;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#D2691E;stop-opacity:1" />
+                </linearGradient>
+                <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+                    <feColorMatrix type="saturate" values="0"/>
+                    <feBlend mode="multiply" in2="SourceGraphic" result="monoNoise"/>
+                    <feComposite operator="in" in2="SourceGraphic"/>
+                </filter>
+                <filter id="glow">
+                    <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+            <g id="bluntGroup">
+                <path id="bluntBody" d="M20,100 Q30,70 50,60 Q400,20 750,60 Q770,70 780,100 Q770,130 750,140 Q400,180 50,140 Q30,130 20,100 Z" fill="url(#bluntGradient)" filter="url(#noise)"/>
+                <ellipse id="bluntEnd" cx="30" cy="100" rx="20" ry="30" fill="#A0522D" filter="url(#noise)"/>
+                <circle id="burningTip" cx="780" cy="100" r="20" fill="#FF4500" filter="url(#glow)"/>
+            </g>
+        </svg>
+        <div id="smokeContainer"></div>
+    </div>
+
+    <script>
+        const countdownElement = document.getElementById('countdown');
+        const bluntBody = document.getElementById('bluntBody');
+        const burningTip = document.getElementById('burningTip');
+        const smokeContainer = document.getElementById('smokeContainer');
+
+        const totalTime = 5 * 60; // 5 minutes
+        let timeLeft = totalTime;
+
+        function updateCountdown() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            countdownElement.textContent = `Starting in ${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            const progress = 1 - (timeLeft / totalTime);
+            const newWidth = 760 - (760 * progress);
+            
+            // Update blunt shape
+            const newPath = `M20,100 Q30,70 50,60 Q${200 + newWidth/2},20 ${newWidth + 20},60 Q${newWidth + 40},70 ${newWidth + 50},100 Q${newWidth + 40},130 ${newWidth + 20},140 Q${200 + newWidth/2},180 50,140 Q30,130 20,100 Z`;
+            bluntBody.setAttribute('d', newPath);
+            
+            const newTipX = newWidth + 50;
+            burningTip.setAttribute('cx', newTipX);
+
+            // Update smoke container position
+            updateSmokePosition(newTipX);
+
+            if (timeLeft > 0) {
+                timeLeft--;
+                setTimeout(updateCountdown, 1000);
+            } else {
+                countdownElement.textContent = "Stream Starting!";
+                document.getElementById('bluntGroup').style.display = 'none';
+                stopSmokeAnimation();
+            }
+        }
+
+        function updateSmokePosition(tipX) {
+            const containerRect = smokeContainer.parentElement.getBoundingClientRect();
+            const svgRect = document.getElementById('blunt').getBoundingClientRect();
+            const relativeX = (tipX / 800) * svgRect.width;
+            smokeContainer.style.right = `${containerRect.width - relativeX}px`;
+        }
+
+        function createSmokeParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'smoke-particle';
+            const size = Math.random() * 20 + 10;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 20}px`;
+            particle.style.bottom = '100px';
+
+            smokeContainer.appendChild(particle);
+
+            const animation = particle.animate([
+                { transform: 'translate(0, 0) scale(1)', opacity: 0 },
+                { transform: `translate(${Math.random() * 100 - 50}px, -200px) scale(3)`, opacity: 0.6 },
+                { transform: `translate(${Math.random() * 200 - 100}px, -400px) scale(5)`, opacity: 0 }
+            ], {
+                duration: 3000 + Math.random() * 3000,
+                easing: 'ease-out'
+            });
+
+            animation.onfinish = () => particle.remove();
+        }
+
+        let smokeInterval;
+
+        function startSmokeAnimation() {
+            smokeInterval = setInterval(createSmokeParticle, 100);
+        }
+
+        function stopSmokeAnimation() {
+            clearInterval(smokeInterval);
+        }
+
+        updateCountdown();
+        startSmokeAnimation();
+    </script>
+</body>
+</html>
