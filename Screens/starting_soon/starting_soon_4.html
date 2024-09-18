@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unique Be Right Back Screen</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #1a1a1a;
+            font-family: Arial, sans-serif;
+        }
+        #container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #clock {
+            font-size: 72px;
+            color: #fff;
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+        }
+        .gear {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: #333;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .gear::before {
+            content: '';
+            width: 80%;
+            height: 80%;
+            background: #1a1a1a;
+            border-radius: 50%;
+        }
+        .tooth {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #333;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="clock"></div>
+    </div>
+    <script>
+        const container = document.getElementById('container');
+        const clock = document.getElementById('clock');
+
+        function updateClock() {
+            const now = new Date();
+            clock.textContent = now.toLocaleTimeString();
+        }
+
+        setInterval(updateClock, 1000);
+
+        function createGear(size, teeth, speed, clockwise) {
+            const gear = document.createElement('div');
+            gear.classList.add('gear');
+            gear.style.width = `${size}px`;
+            gear.style.height = `${size}px`;
+
+            for (let i = 0; i < teeth; i++) {
+                const tooth = document.createElement('div');
+                tooth.classList.add('tooth');
+                tooth.style.transform = `rotate(${i * (360 / teeth)}deg) translateY(-${size / 2}px)`;
+                gear.appendChild(tooth);
+            }
+
+            container.appendChild(gear);
+
+            let rotation = 0;
+            setInterval(() => {
+                rotation += clockwise ? speed : -speed;
+                gear.style.transform = `rotate(${rotation}deg)`;
+            }, 50);
+
+            return gear;
+        }
+
+        const gear1 = createGear(200, 20, 1, true);
+        gear1.style.top = '10%';
+        gear1.style.left = '10%';
+
+        const gear2 = createGear(150, 15, 1.5, false);
+        gear2.style.bottom = '15%';
+        gear2.style.right = '15%';
+
+        const gear3 = createGear(100, 10, 2, true);
+        gear3.style.top = '20%';
+        gear3.style.right = '25%';
+
+        const styles = document.createElement('style');
+        styles.textContent = `
+            @keyframes blink {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.5; }
+            }
+        `;
+        document.head.appendChild(styles);
+
+        const brb = document.createElement('div');
+        brb.textContent = 'Be Right Back';
+        brb.style.position = 'absolute';
+        brb.style.bottom = '10%';
+        brb.style.left = '50%';
+        brb.style.transform = 'translateX(-50%)';
+        brb.style.fontSize = '48px';
+        brb.style.color = '#fff';
+        brb.style.textShadow = '0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff';
+        brb.style.animation = 'blink 2s infinite';
+        container.appendChild(brb);
+    </script>
+</body>
+</html>
