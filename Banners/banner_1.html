@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Stream Promo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+            background-color: transparent;
+        }
+
+        #promo-banner {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            opacity: 0;
+        }
+
+        #promo-banner.visible {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        #promo-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        #hologram {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 0%, rgba(0, 255, 255, 0.1) 50%, transparent 100%);
+            background-size: 200% 200%;
+            animation: hologram-shift 5s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes hologram-shift {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 200%; }
+        }
+
+        #glitch-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(255, 255, 255, 0.1),
+                rgba(255, 255, 255, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            opacity: 0;
+            animation: glitch 0.3s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes glitch {
+            0% { opacity: 0; transform: translateX(0); }
+            25% { opacity: 0.1; transform: translateX(-5px); }
+            50% { opacity: 0; transform: translateX(0); }
+            75% { opacity: 0.1; transform: translateX(5px); }
+            100% { opacity: 0; transform: translateX(0); }
+        }
+
+        #cta-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 15px;
+            background-color: #00ffff;
+            color: #000;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #cta-button:hover {
+            background-color: #ff00ff;
+            color: #fff;
+        }
+
+        #cta-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 65%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #cta-button:hover::before {
+            opacity: 1;
+            animation: ripple 1s linear infinite;
+        }
+
+        @keyframes ripple {
+            0% { transform: translate(-50%, -50%) scale(0.8); }
+            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div id="promo-banner">
+        <div id="hologram"></div>
+        <div id="glitch-effect"></div>
+        <div id="promo-content">
+            <h2>Elevate Your Stream</h2>
+            <p>Unlock custom designs to captivate your audience!</p>
+            <a href="#" id="cta-button">Get Custom Designs</a>
+        </div>
+    </div>
+
+    <script>
+        const banner = document.getElementById('promo-banner');
+        const glitchEffect = document.getElementById('glitch-effect');
+
+        function showBanner() {
+            banner.classList.add('visible');
+            setTimeout(() => {
+                glitchEffect.style.animation = 'glitch 0.3s infinite';
+                setTimeout(() => {
+                    glitchEffect.style.animation = 'none';
+                }, 500);
+            }, 1000);
+        }
+
+        function hideBanner() {
+            banner.classList.remove('visible');
+        }
+
+        function toggleBanner() {
+            if (banner.classList.contains('visible')) {
+                hideBanner();
+            } else {
+                showBanner();
+            }
+        }
+
+        setInterval(toggleBanner, 10000);
+    </script>
+</body>
+</html>
