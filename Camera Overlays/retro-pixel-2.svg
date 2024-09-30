@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+  <!-- Main frame -->
+  <rect x="0" y="0" width="600" height="800" fill="none" stroke="#00FFFF" stroke-width="8"/>
+  
+  <!-- Inner glow effect -->
+  <rect x="8" y="8" width="584" height="784" fill="none" stroke="#00FFFF" stroke-width="2" opacity="0.5"/>
+  
+  <!-- Top banner -->
+  <rect x="0" y="0" width="600" height="40" fill="#00FFFF" fill-opacity="0.2"/>
+  <text x="300" y="28" font-family="monospace" font-size="20" fill="#00FFFF" text-anchor="middle">STREAMER NAME</text>
+  
+  <!-- Bottom banner -->
+  <rect x="0" y="760" width="600" height="40" fill="#00FFFF" fill-opacity="0.2"/>
+  <text x="300" y="788" font-family="monospace" font-size="20" fill="#00FFFF" text-anchor="middle">NOW PLAYING: RETRO GAME</text>
+  
+  <!-- Corner accents -->
+  <path d="M0 0 L40 0 L40 40 L0 40 Z" fill="none" stroke="#00FFFF" stroke-width="4"/>
+  <path d="M560 0 L600 0 L600 40 L560 40 Z" fill="none" stroke="#00FFFF" stroke-width="4"/>
+  <path d="M0 760 L40 760 L40 800 L0 800 Z" fill="none" stroke="#00FFFF" stroke-width="4"/>
+  <path d="M560 760 L600 760 L600 800 L560 800 Z" fill="none" stroke="#00FFFF" stroke-width="4"/>
+</svg>
