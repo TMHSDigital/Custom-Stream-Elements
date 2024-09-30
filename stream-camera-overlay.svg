@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <!-- Define gradients and filters -->
+  <defs>
+    <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF6B6B" />
+      <stop offset="50%" style="stop-color:#4ECDC4" />
+      <stop offset="100%" style="stop-color:#FFD700" />
+    </linearGradient>
+    <filter id="neonGlow">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Main frame - just the border -->
+  <rect x="660" y="90" width="600" height="800" fill="none" stroke="url(#neonGradient)" stroke-width="4" filter="url(#neonGlow)">
+    <animate attributeName="stroke-dasharray" values="0,1500;1500,0" dur="15s" repeatCount="indefinite" />
+  </rect>
+
+  <!-- Corner accents -->
+  <path d="M660 90 L710 90 L710 140" fill="none" stroke="#FFD700" stroke-width="6" filter="url(#neonGlow)">
+    <animate attributeName="opacity" values="1;0.5;1" dur="3s" repeatCount="indefinite" />
+  </path>
+  <path d="M1260 90 L1210 90 L1210 140" fill="none" stroke="#FFD700" stroke-width="6" filter="url(#neonGlow)">
+    <animate attributeName="opacity" values="1;0.5;1" dur="3s" repeatCount="indefinite" />
+  </path>
+  <path d="M660 890 L710 890 L710 840" fill="none" stroke="#FFD700" stroke-width="6" filter="url(#neonGlow)">
+    <animate attributeName="opacity" values="1;0.5;1" dur="3s" repeatCount="indefinite" />
+  </path>
+  <path d="M1260 890 L1210 890 L1210 840" fill="none" stroke="#FFD700" stroke-width="6" filter="url(#neonGlow)">
+    <animate attributeName="opacity" values="1;0.5;1" dur="3s" repeatCount="indefinite" />
+  </path>
+
+  <!-- Animated side accents -->
+  <path d="M640 240 Q630 490 640 740" fill="none" stroke="#FF6B6B" stroke-width="3" filter="url(#neonGlow)">
+    <animate attributeName="d" 
+             values="M640 240 Q630 490 640 740;M640 240 Q650 490 640 740;M640 240 Q630 490 640 740"
+             dur="10s" repeatCount="indefinite" />
+  </path>
+  <path d="M1280 240 Q1290 490 1280 740" fill="none" stroke="#4ECDC4" stroke-width="3" filter="url(#neonGlow)">
+    <animate attributeName="d" 
+             values="M1280 240 Q1290 490 1280 740;M1280 240 Q1270 490 1280 740;M1280 240 Q1290 490 1280 740"
+             dur="10s" repeatCount="indefinite" />
+  </path>
+
+  <!-- Streamer name area -->
+  <path id="namePath" d="M660 920 Q960 950 1260 920" fill="none" />
+  <text fill="#FFFFFF" font-family="Arial, sans-serif" font-size="36" font-weight="bold" filter="url(#neonGlow)">
+    <textPath href="#namePath" startOffset="50%" text-anchor="middle">
+      STREAMER NAME
+      <animate attributeName="startOffset" values="50%;51%;50%" dur="5s" repeatCount="indefinite" />
+    </textPath>
+  </text>
+
+  <!-- Subtle animated particles -->
+  <g>
+    <circle cx="960" cy="40" r="3" fill="#FFD700">
+      <animateMotion path="M0 0 Q100 25 0 50 T0 100" dur="10s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="960" cy="40" r="3" fill="#FF6B6B">
+      <animateMotion path="M0 0 Q-100 25 0 50 T0 100" dur="8s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="960" cy="940" r="3" fill="#4ECDC4">
+      <animateMotion path="M0 0 Q100 -25 0 -50 T0 -100" dur="12s" repeatCount="indefinite" />
+    </circle>
+  </g>
+</svg>
