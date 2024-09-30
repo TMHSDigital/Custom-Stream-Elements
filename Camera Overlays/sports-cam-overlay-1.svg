@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+  <!-- Background frame -->
+  <rect x="0" y="0" width="600" height="800" fill="#1E1E1E" />
+  
+  <!-- Main camera frame -->
+  <rect x="10" y="60" width="580" height="680" fill="none" stroke="#FFA500" stroke-width="4" />
+  
+  <!-- Top banner -->
+  <rect x="0" y="0" width="600" height="50" fill="#FFA500" />
+  <text x="300" y="35" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">SPORTS STREAM</text>
+  
+  <!-- Bottom scoreboard -->
+  <rect x="50" y="750" width="500" height="40" fill="#FFA500" />
+  <text x="100" y="778" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white">HOME 0</text>
+  <text x="500" y="778" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="end">AWAY 0</text>
+  
+  <!-- Side accents -->
+  <rect x="0" y="60" width="5" height="680" fill="#FFA500" />
+  <rect x="595" y="60" width="5" height="680" fill="#FFA500" />
+  
+  <!-- Corner icons -->
+  <circle cx="30" cy="90" r="15" fill="#FFA500" />
+  <circle cx="570" cy="90" r="15" fill="#FFA500" />
+  <circle cx="30" cy="710" r="15" fill="#FFA500" />
+  <circle cx="570" cy="710" r="15" fill="#FFA500" />
+  
+  <!-- Timer -->
+  <rect x="250" y="60" width="100" height="30" fill="#FFA500" />
+  <text x="300" y="82" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">00:00</text>
+  
+  <!-- Player/Streamer name -->
+  <text x="20" y="740" font-family="Arial, sans-serif" font-size="18" fill="#FFA500">PLAYER: StreamerName</text>
+</svg>
