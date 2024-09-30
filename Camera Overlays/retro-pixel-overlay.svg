@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <!-- Define patterns for pixelated look -->
+    <pattern id="diagonalHatch" patternUnits="userSpaceOnUse" width="8" height="8">
+      <path d="M-2,2 l4,-4 M0,8 l8,-8 M6,10 l4,-4" style="stroke:#3E8989; stroke-width:1" />
+    </pattern>
+  </defs>
+
+  <!-- Main frame -->
+  <rect x="660" y="90" width="600" height="800" fill="#264F4F" stroke="#7BE0E0" stroke-width="8"/>
+  <rect x="664" y="94" width="592" height="792" fill="url(#diagonalHatch)"/>
+
+  <!-- Pixelated corner icons -->
+  <rect x="660" y="90" width="40" height="40" fill="#FFD700"/> <!-- Top-left: coin -->
+  <rect x="1220" y="90" width="40" height="40" fill="#FF6347"/> <!-- Top-right: heart -->
+  <rect x="660" y="850" width="40" height="40" fill="#4CAF50"/> <!-- Bottom-left: star -->
+  <rect x="1220" y="850" width="40" height="40" fill="#1E90FF"/> <!-- Bottom-right: joystick -->
+
+  <!-- Scrolling banner -->
+  <rect x="560" y="50" width="800" height="30" fill="#264F4F"/>
+  <text id="scrollingText" x="1360" y="72" font-family="monospace" font-size="20" fill="#7BE0E0">
+    STREAMER NAME - NOW PLAYING: RETRO GAME
+    <animateTransform
+      attributeName="transform"
+      type="translate"
+      from="0 0" to="-800 0"
+      dur="10s" repeatCount="indefinite"/>
+  </text>
+
+  <!-- Side meters -->
+  <rect x="620" y="90" width="20" height="800" fill="#264F4F" stroke="#7BE0E0" stroke-width="4"/>
+  <rect id="leftMeter" x="624" y="94" width="12" height="792" fill="#7BE0E0">
+    <animate attributeName="height" values="792;396;792" dur="10s" repeatCount="indefinite"/>
+  </rect>
+  
+  <rect x="1280" y="90" width="20" height="800" fill="#264F4F" stroke="#7BE0E0" stroke-width="4"/>
+  <rect id="rightMeter" x="1284" y="94" width="12" height="792" fill="#7BE0E0">
+    <animate attributeName="height" values="396;792;396" dur="10s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Chat bubble -->
+  <path d="M660 910 Q960 970 1260 910 L1260 960 Q960 1020 660 960 Z" fill="#264F4F" stroke="#7BE0E0" stroke-width="4"/>
+  <text x="960" y="950" font-family="monospace" font-size="24" fill="#7BE0E0" text-anchor="middle">
+    LATEST SUB: RETRO_FAN_123
+  </text>
+
+  <!-- Blinking animation for corner icons -->
+  <animate xlink:href="#coin" attributeName="fill-opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+  <animate xlink:href="#heart" attributeName="fill-opacity" values="1;0.5;1" dur="2.5s" repeatCount="indefinite"/>
+  <animate xlink:href="#star" attributeName="fill-opacity" values="1;0.5;1" dur="3s" repeatCount="indefinite"/>
+  <animate xlink:href="#joystick" attributeName="fill-opacity" values="1;0.5;1" dur="3.5s" repeatCount="indefinite"/>
+</svg>
